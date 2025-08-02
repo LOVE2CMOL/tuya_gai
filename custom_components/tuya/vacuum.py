@@ -17,8 +17,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import TuyaConfigEntry
 from .const import TUYA_DISCOVERY_NEW, DPCode, DPType
-from .entity import TuyaEntity
-from .models import EnumTypeData, IntegerTypeData
+from .entity import EnumTypeData, IntegerTypeData, TuyaEntity
 
 TUYA_MODE_RETURN_HOME = "chargego"
 TUYA_STATUS_TO_HA = {
@@ -92,15 +91,14 @@ class TuyaVacuumEntity(TuyaEntity, StateVacuumEntity):
         if self.find_dpcode(DPCode.PAUSE, prefer_function=True):
             self._attr_supported_features |= VacuumEntityFeature.PAUSE
 
-        self._return_home_use_switch_charge = False
-        if self.find_dpcode(DPCode.SWITCH_CHARGE, prefer_function=True):
-            self._attr_supported_features |= VacuumEntityFeature.RETURN_HOME
-            self._return_home_use_switch_charge = True
-        elif (
-            enum_type := self.find_dpcode(
-                DPCode.MODE, dptype=DPType.ENUM, prefer_function=True
+        if self.find_dpcode(DPCode.SWITCH_CHARGE, prefer_function=True) or (
+            (
+                enum_type := self.find_dpcode(
+                    DPCode.MODE, dptype=DPType.ENUM, prefer_function=True
+                )
             )
-        ) and TUYA_MODE_RETURN_HOME in enum_type.range:
+            and TUYA_MODE_RETURN_HOME in enum_type.range
+        ):
             self._attr_supported_features |= VacuumEntityFeature.RETURN_HOME
 
         if self.find_dpcode(DPCode.SEEK, prefer_function=True):
@@ -161,10 +159,12 @@ class TuyaVacuumEntity(TuyaEntity, StateVacuumEntity):
 
     def return_to_base(self, **kwargs: Any) -> None:
         """Return device to dock."""
-        if self._return_home_use_switch_charge:
-            self._send_command([{"code": DPCode.SWITCH_CHARGE, "value": True}])
-        else:
-            self._send_command([{"code": DPCode.MODE, "value": TUYA_MODE_RETURN_HOME}])
+        self._send_command(
+            [
+                {"code": DPCode.SWITCH_CHARGE, "value": True},
+                {"code": DPCode.MODE, "value": TUYA_MODE_RETURN_HOME},
+            ]
+        )
 
     def locate(self, **kwargs: Any) -> None:
         """Locate the device."""

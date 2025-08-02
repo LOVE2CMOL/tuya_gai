@@ -20,8 +20,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import TuyaConfigEntry
 from .const import TUYA_DISCOVERY_NEW, DPCode, DPType
-from .entity import TuyaEntity
-from .models import EnumTypeData
+from .entity import EnumTypeData, TuyaEntity
 
 
 @dataclass(frozen=True)

@@ -23,14 +23,6 @@ from .entity import TuyaEntity
 # All descriptions can be found here:
 # https://developer.tuya.com/en/docs/iot/standarddescription?id=K9i5ql6waswzq
 SIRENS: dict[str, tuple[SirenEntityDescription, ...]] = {
-    # CO2 Detector
-    # https://developer.tuya.com/en/docs/iot/categoryco2bj?id=Kaiuz3wes7yuy
-    "co2bj": (
-        SirenEntityDescription(
-            key=DPCode.ALARM_SWITCH,
-            entity_category=EntityCategory.CONFIG,
-        ),
-    ),
     # Multi-functional Sensor
     # https://developer.tuya.com/en/docs/iot/categorydgnbj?id=Kaiuz3yorvzg3
     "dgnbj": (
@@ -50,6 +42,14 @@ SIRENS: dict[str, tuple[SirenEntityDescription, ...]] = {
     "sp": (
         SirenEntityDescription(
             key=DPCode.SIREN_SWITCH,
+        ),
+    ),
+    # CO2 Detector
+    # https://developer.tuya.com/en/docs/iot/categoryco2bj?id=Kaiuz3wes7yuy
+    "co2bj": (
+        SirenEntityDescription(
+            key=DPCode.ALARM_SWITCH,
+            entity_category=EntityCategory.CONFIG,
         ),
     ),
 }
