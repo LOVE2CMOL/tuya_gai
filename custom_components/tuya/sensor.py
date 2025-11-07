@@ -702,6 +702,11 @@ SENSORS: dict[DeviceCategory, tuple[TuyaSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             suggested_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
         ),
+        TuyaSensorEntityDescription(                                       
+            key=DPCode.CH2O_VALUE,                                        
+            translation_key="ch2o_value",                                 
+            state_class=SensorStateClass.MEASUREMENT,                     
+        ),
         TuyaSensorEntityDescription(
             key=DPCode.TOTAL_TIME,
             translation_key="total_operating_time",
