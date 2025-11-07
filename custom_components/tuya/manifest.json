@@ -42,7 +42,7 @@
   "documentation": "https://www.home-assistant.io/integrations/tuya",
   "integration_type": "hub",
   "iot_class": "cloud_push",
-  "loggers": ["tuya_iot"],
-  "requirements": ["tuya-device-sharing-sdk==0.2.1"],
-  "version": "2025.7.3"
+  "loggers": ["tuya_sharing"],
+  "requirements": ["tuya-device-sharing-sdk==0.2.4"]
+  "version": "2025.11.7"
 }
