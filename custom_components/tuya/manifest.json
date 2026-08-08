@@ -44,8 +44,7 @@
   "iot_class": "cloud_push",
   "loggers": ["tuya_sharing"],
   "requirements": [
-    "tuya-device-handlers==0.0.15",
-    "tuya-device-sharing-sdk==0.2.8"
-  ],
-  "version": "2026.4.2"
+    "tuya-device-handlers==0.0.26",
+    "tuya-device-sharing-sdk==0.2.14"
+  ]
 }
